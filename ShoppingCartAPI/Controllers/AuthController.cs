@@ -21,6 +21,7 @@ namespace ShoppingCartAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserDTO dto)
         {
+            //register user
             var result = await _userService.UserRegister(dto);
             if (!result.Success)
             {
@@ -33,6 +34,7 @@ namespace ShoppingCartAPI.Controllers
         [HttpPost("GenerateToken")]
         public async Task<IActionResult> GenerateToken(UserDTO dto)
         {
+            //generate token
             var result = await _userService.GenerateToken(dto);
             if (!result.Success)
             {

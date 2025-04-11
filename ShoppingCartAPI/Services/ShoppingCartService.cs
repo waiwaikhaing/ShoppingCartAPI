@@ -23,6 +23,7 @@ namespace ShoppingCartAPI.Services
             _context = context;
         }
 
+        #region get item
         public async Task<ServiceDataResponse<List<CartItemDetailDTO>>> GetCartItemsAsync(string userId)
         {
             ServiceDataResponse<List<CartItemDetailDTO>> response = new ServiceDataResponse<List<CartItemDetailDTO>>();
@@ -63,7 +64,9 @@ namespace ShoppingCartAPI.Services
             }
             return response;
         }
+        #endregion
 
+        #region add item
         public async Task<ServiceDataResponse<List<CartItem>>> AddItemToCartAsync(string userId, List<CartItemDTO> itemDto)
         {
             ServiceDataResponse<List<CartItem>> response = new ServiceDataResponse<List<CartItem>>();
@@ -142,7 +145,9 @@ namespace ShoppingCartAPI.Services
             }
             return response;
         }
+        #endregion
 
+        #region Remove 
         public async Task<ServiceResponse> RemoveItemFromCartAsync(string cartItemId)
         {
             ServiceResponse response = new ServiceResponse();
@@ -185,7 +190,9 @@ namespace ShoppingCartAPI.Services
             }
             return response;
         }
+        #endregion
 
+        #region check out 
         public async Task<ServiceDataResponse<List<CartItemResponselDTO>>> CheckoutAsync(string userId)
         {
             ServiceDataResponse<List<CartItemResponselDTO>> response = new ServiceDataResponse<List<CartItemResponselDTO>>();
@@ -207,6 +214,7 @@ namespace ShoppingCartAPI.Services
                         var product = await _context.Products
                             .Where(ci => ci.ProductId == item.ProductId && ci.Active == true)
                             .FirstOrDefaultAsync();
+                        //checking enough or not enough qty
                         if (product != null)
                         {
                             if (product.Qty >= item.Qty) {
@@ -229,6 +237,7 @@ namespace ShoppingCartAPI.Services
                         }
                         notEnoughStockItemsList.Add(notEnoughStockItems);
                     }
+                    //if qty is not enough , didnot order
                     if(!isNotEnough) result = await _context.SaveChangesAsync();
                 }
 
@@ -273,5 +282,6 @@ namespace ShoppingCartAPI.Services
                 return response;
             }
         }
+        #endregion
     }
 }

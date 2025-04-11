@@ -68,6 +68,7 @@ namespace ShoppingCartAPI.Services
             try
             {
                 var result = 0;
+                //to write log format
                 var jsonOptions = new JsonSerializerOptions
                 {
                     WriteIndented = true
@@ -75,10 +76,10 @@ namespace ShoppingCartAPI.Services
 
                 if (itemDto.Count > 0)
                 {
-                    //write log
-                  
+                    #region write log
                     string text = "Error :" + DateTime.Now + " >>>> " + JsonSerializer.Serialize(itemDto, jsonOptions);
                     General.WriteLogInTextFile(text);
+                    #endregion
 
                     foreach (var item in itemDto)
                     {
@@ -121,7 +122,6 @@ namespace ShoppingCartAPI.Services
                 }
 
                 //write log
-                
                 string msg = "Info :" + DateTime.Now + " >>>> " + JsonSerializer.Serialize(response, jsonOptions);
                 General.WriteLogInTextFile(msg);
 

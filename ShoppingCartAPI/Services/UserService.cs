@@ -67,7 +67,7 @@ namespace ShoppingCartAPI.Services
                 };
             }
             var secureKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            Console.WriteLine(secureKey); // use this as your Jwt:Key
+            Console.WriteLine(secureKey);
 
             // Generate JWT token
             var token = await _jwtService.GenerateToken(user);
